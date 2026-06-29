@@ -79,19 +79,23 @@ function displayProducts(items) {
 
 }
 
-searchInput.addEventListener("input", e => {
+searchInput.addEventListener("input", (e) => {
 
     const value = e.target.value.toLowerCase().trim();
 
-    const filteredProducts = products.filter(product =>
+    const filteredProducts = products.filter((product) => {
 
-        product.title.toLowerCase().includes(value) ||
+        const title = (product.title || "").toLowerCase();
+        const brand = (product.brand || "").toLowerCase();
+        const category = (product.category || "").toLowerCase();
 
-        product.brand.toLowerCase().includes(value) ||
+        return (
+            title.includes(value) ||
+            brand.includes(value) ||
+            category.includes(value)
+        );
 
-        product.category.toLowerCase().includes(value)
-
-    );
+    });
 
     displayProducts(filteredProducts);
 
